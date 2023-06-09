@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 const Header = (props) =>{
   return(
     <div>{props.course}</div>  
@@ -6,6 +8,7 @@ const Header = (props) =>{
 
 
 const Part = (props) => {
+  console.log("parts",props)
   return (
     <p>
       {props.parts.name} {props.parts.exercises}
@@ -14,6 +17,7 @@ const Part = (props) => {
 }
 
 const Content = (props) => {
+  console.log("Content", props)
   return (
     <div>
       <p> 
@@ -54,10 +58,58 @@ const App = () => {
   }
   return (
     <div>
-      <Header course={course.name}/>
-      <Content parts={course.parts}/>
-      <Total parts={course.parts}></Total>
+      <Header course={course.name} />
+      <Content parts={course.parts} />
+      <Total parts={course.parts} />
+      <Cuco />
     </div>
   )
 }
 export default App
+
+
+const Cuco = () => {
+
+  const [counter, setCounter] = useState(0)
+  console.log('rendering with counter value', counter)
+
+  const increaseByOne = () => {
+    console.log('increasing, value before', counter)
+    setCounter(counter + 1)
+  }
+
+  const decreaseByOne = () => { 
+    console.log('decreasing, value before', counter)
+    setCounter(counter - 1)
+  }
+
+  const setToZero = () => {
+    console.log('resetting to zero, value before', counter)
+    setCounter(0)
+  }
+  return (
+    <div>
+      <Display counter={counter}/>
+      <Button 
+      handleClick={increaseByOne}
+      text="plus"
+      />
+      <Button 
+      handleClick={setToZero}
+      text="zero"
+      />
+      <Button 
+      handleClick={decreaseByOne}
+      text="minus"
+      />
+    </div>
+  )
+}
+
+const Display = ({ counter }) => <div>{counter}</div>
+
+const Button = ({handleClick, text}) => 
+    <button onClick={handleClick}>
+       {text}
+    </button>
+
