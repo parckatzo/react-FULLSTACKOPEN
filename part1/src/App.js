@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AppDos } from './AppDos';
 
 const Header = (props) =>{
   return(
@@ -62,6 +63,7 @@ const App = () => {
       <Content parts={course.parts} />
       <Total parts={course.parts} />
       <Cuco />
+      <AppDos></AppDos>
     </div>
   )
 }
