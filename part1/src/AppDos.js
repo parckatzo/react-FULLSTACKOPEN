@@ -10,10 +10,16 @@ const History = (props) =>{
   }
   return(
     <div>
-      button press history : {props.allClicks.join(" ")}
+      button press history : {props.allClicks.join("-")}
     </div>
   )
 }
+const Button = ({handleClick, text} ) => (
+  <button onClick={handleClick}>
+    {text}
+  </button>
+  
+)
 
 
 export const AppDos = () => {
@@ -40,8 +46,8 @@ export const AppDos = () => {
   return (
     <div>
       {left}
-      <button onClick={handleLeftClick}>left</button>
-      <button onClick={handleRightClick}>right</button>
+      <Button handleClick={handleLeftClick} text='left'/>
+      <Button handleClick={handleRightClick} text='right'/>
       {right}
       <div>
         <History allClicks={allClicks}/>

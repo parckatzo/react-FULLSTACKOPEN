@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { AppDos } from './AppDos';
+import { AppTres } from './AppTres';
+import { Unicafe } from './Unicafe';
 
 const Header = (props) =>{
   return(
@@ -64,6 +66,8 @@ const App = () => {
       <Total parts={course.parts} />
       <Cuco />
       <AppDos></AppDos>
+      <AppTres></AppTres>
+      <Unicafe></Unicafe>
     </div>
   )
 }
