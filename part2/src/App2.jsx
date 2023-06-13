@@ -1,5 +1,4 @@
 import React from 'react'
-import { Course } from './components/Course'
 import Course1 from './components/Course1'
 
 

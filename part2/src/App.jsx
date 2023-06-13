@@ -1,41 +1,44 @@
 
 import Note from './components/Note'
-import App2 from './App2'
 import { useState } from 'react'
 
 const App = (props) => {
-  const [notes, setNotes] = useState(props.notes)
-  const [newNote, setNewNote] = useState(
-    'a new note...'
-  )
+  const [notes, setNotes] = useState(props.notes) // props.notes es un array 
+  const [newNote, setNewNote] = useState("new note...")
+  const [showAll, setShowAll] = useState(true)
 
-  const addNote = (event) => {
-    event.preventDefault()
-    console.log('Button clicked', event.target)
-  }
 
   const handleNoteChange = (event) =>{
-    console.log(event.target.value)
-    setNewNote(event.target.value)
+    console.log(event.target.value) //console.log el valor de <form/>
+    setNewNote(event.target.value)// setNueva nota = input de form
   }
 
   const addNote = (event) =>{
-    event.preventDefault()
+    event.preventDefault() //IMPORTANTE PARA QUE NO SE REINICIE LA PAGINA
     const noteObject = {
-      content: newNote,
-      important: Math.random() < 0.5,
-      id: notes.length + 1,
+      content: newNote,  //nueva nota = input de form
+      important: Math.random() < 0.5, //50% de ser importante
+      id: notes.length + 1, //+1 id 
     }
 
-    setNotes(notes.concat(noteObject))
-    setNewNote("")
+    setNotes(notes.concat(noteObject)) //setNotes = notes[Array] + noteObject 
+    setNewNote("")// string vacio 
   }
+
+  const notesToShow = showAll // si showAll is true ? mostrara todas las notas : si es falso filtrara las notas  
+    ? notes
+    : notes.filter(note => note.important === true)
 
   return (
     <div>
       <h1>Notes</h1>
+      <div>
+        <button onClick={() => setShowAll(!showAll)}>
+          Show {showAll ? 'important' : 'all'}
+        </button>
+      </div>
       <ul>
-        {notes.map(note => 
+        {notesToShow.map(note => 
           <Note key={note.id} note={note}/>
         )}
       </ul>
@@ -45,7 +48,6 @@ const App = (props) => {
           onChange={handleNoteChange}/>
           <button type='submit'> save</button>
       </form>
-      <App2></App2>
     </div>
   )
 }
