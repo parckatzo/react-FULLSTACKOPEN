@@ -38,14 +38,27 @@ const App3 = () => {
             name: newName,
             number: newNumber,
         }
-        same ? window.confirm(`${newName} is already added to phonebook, replace the old number with new one?`) 
-        : namesService
+        if(same === true){
+            if(window.confirm(`${newName} is already added to phonebook, replace the old number with new one?`)){
+                const personSearch = persons.find(a => a.name === newName)
+                const personId = personSearch.id
+                const changedNumber = {...personSearch, number : newNumber}
+
+                console.log('personSearch',personId)
+                 namesService
+                    .update(personId, changedNumber)
+                    .then(response =>{
+                        setPersons(persons.map(p => p.id !== personId ? p : response))
+                    })
+            }
+        }else{
+         namesService
             .create(newAddName)
             .then(response =>{
                 setPersons(persons.concat(response))
-                 setNewName("")
                 }
             )
+        }
     }
     
     const handleSame = () =>{

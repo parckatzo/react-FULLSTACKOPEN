@@ -17,7 +17,7 @@
     },
     {
       "content": "new note...",
-      "important": true,
+      "important": false,
       "id": 4
     },
     {
@@ -29,6 +29,11 @@
       "content": "new note...",
       "important": true,
       "id": 6
+    },
+    {
+      "content": "new note...",
+      "important": true,
+      "id": 7
     }
   ],
   "persons": [
@@ -53,29 +58,19 @@
       "id": 4
     },
     {
-      "name": "",
-      "number": 0,
-      "id": 5
-    },
-    {
-      "name": "",
-      "number": "123141",
-      "id": 7
-    },
-    {
-      "name": "",
-      "number": 0,
-      "id": 9
-    },
-    {
-      "name": "",
-      "number": 0,
-      "id": 10
-    },
-    {
       "name": "Caco",
-      "number": "11-11-145124",
+      "number": "11-11-666666",
       "id": 11
+    },
+    {
+      "name": "Cacodos",
+      "number": "1234145",
+      "id": 13
+    },
+    {
+      "name": "cacodos",
+      "number": "14414",
+      "id": 14
     }
   ]
 }
