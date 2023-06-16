@@ -2,8 +2,7 @@ import { useEffect, useState } from "react"
 import Form from "./componentsApp3/Form"
 import Filter from "./componentsApp3/Filter"
 import Persons from "./componentsApp3/Persons"
-import axios from "axios"
-
+import namesService from "./services/names"
 
 const App3 = () => {
     const [persons, setPersons] = useState([])
@@ -13,12 +12,11 @@ const App3 = () => {
     const [nameFilter, setNameFilter] = useState('')
 
     useEffect(() => {
-        console.log('Effect')
-        axios
-            .get('http://localhost:3001/persons')
+        namesService
+            .getAll()
             .then(response => {
-                console.log('promise fulfilled')
-                setPersons(response.data);
+                setPersons(response);
+                console.log(response)
             })
     }, [])
     console.log('render',persons.length, 'persons')
@@ -39,17 +37,31 @@ const App3 = () => {
         const newAddName = {
             name: newName,
             number: newNumber,
-            id : persons.length + 1
         }
-        same ? same : setPersons(persons.concat(newAddName))
-        setNewName("");
+        same ? window.confirm(`${newName} is already added to phonebook, replace the old number with new one?`) 
+        : namesService
+            .create(newAddName)
+            .then(response =>{
+                setPersons(persons.concat(response))
+                 setNewName("")
+                }
+            )
     }
     
     const handleSame = () =>{
         setSame(persons.some(person => person.name === newName))
-        same ? alert(`${newName} is already added to phonebook`) : same
-        console.log(same)
     }
+
+    const handleDelete = (id, name) => {
+        window.confirm(`delete ${name} ?`)
+        ? namesService
+            .deleteObject(id)
+            .then(response => {
+                setPersons(persons.filter(n => n.id !== id))
+            }) 
+        : console.log('cancel')
+    }
+  
 
     const filterName = nameFilter === "" ? persons : persons.filter((a) => a.name.match(nameFilter))
 
@@ -67,7 +79,8 @@ const App3 = () => {
         handleSame={handleSame}/>
         <h2>Numbers</h2>
         <Persons 
-        filterName={filterName}/>
+        filterName={filterName}
+        handleDelete={handleDelete}/>
     </div>
   )
 }

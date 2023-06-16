@@ -8,47 +8,27 @@
     {
       "id": 2,
       "content": "Browser can execute only JavaScript",
-      "important": false
+      "important": true
     },
     {
       "id": 3,
       "content": "GET and POST are the most important methods of HTTP protocol",
-      "important": true
+      "important": false
     },
     {
       "content": "new note...",
-      "important": false,
+      "important": true,
       "id": 4
     },
     {
-      "content": "sdasfasf",
-      "important": false,
+      "content": "CACO",
+      "important": true,
       "id": 5
     },
     {
-      "content": "ads",
-      "important": false,
+      "content": "new note...",
+      "important": true,
       "id": 6
-    },
-    {
-      "content": "new note...",
-      "important": false,
-      "id": 7
-    },
-    {
-      "content": "",
-      "important": false,
-      "id": 8
-    },
-    {
-      "content": "new note...",
-      "important": true,
-      "id": 9
-    },
-    {
-      "content": "Caco",
-      "important": true,
-      "id": 10
     }
   ],
   "persons": [
@@ -71,6 +51,31 @@
       "name": "Mary Poppendieck",
       "number": "39-23-6423122",
       "id": 4
+    },
+    {
+      "name": "",
+      "number": 0,
+      "id": 5
+    },
+    {
+      "name": "",
+      "number": "123141",
+      "id": 7
+    },
+    {
+      "name": "",
+      "number": 0,
+      "id": 9
+    },
+    {
+      "name": "",
+      "number": 0,
+      "id": 10
+    },
+    {
+      "name": "Caco",
+      "number": "11-11-145124",
+      "id": 11
     }
   ]
 }

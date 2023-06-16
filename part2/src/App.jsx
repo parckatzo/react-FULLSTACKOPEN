@@ -1,7 +1,7 @@
 
-import axios from 'axios'
 import Note from './components/Note'
 import { useEffect, useState } from 'react'
+import noteService from './services/notes'
 
 const App = () => {
   const [notes, setNotes] = useState([]) // notes es un array 
@@ -9,18 +9,30 @@ const App = () => {
   const [showAll, setShowAll] = useState(true)
 
   useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/notes')
+    noteService
+      .getAll()
       .then(response => {
-          console.log('promise fulfilled')
-          setNotes(response.data)
+        setNotes(response)
       })
   }, [])
   console.log('render', notes.length, 'notes')
 
-  const handleNoteChange = (event) =>{
-    setNewNote(event.target.value)// setNueva nota = input de form
+  const toggleImportanceOf = (id)  =>{
+    const note = notes.find(n => n.id === id)  //note = notas.find (notas => si notas.id es igual === a (id))
+    const changedNote = {...note, important: !note.important } //cambiar importancia true= false / viceversa
+    
+    noteService
+      .update(id, changedNote)
+      .then(response => {
+        setNotes(notes.map(note => note.id !== id ? note : response))
+    })
+      .catch(error =>{
+        alert(
+          `the note '${note.content}' was already deleted from server`
+        )
+        setNotes(notes.filter(n => n.id !== id))
+    })
+
   }
 
   const addNote = (event) =>{
@@ -29,16 +41,21 @@ const App = () => {
       content: newNote,  //nueva nota = input de form
       important: Math.random() < 0.5, //50% de ser importante
     }
-
-    axios
-    .post('http://localhost:3001/notes', noteObject)
-    .then(response => {
-      console.log(response)
-      setNotes(notes.concat(response.data))
-      setNewNote('')
-    })
-
+    noteService
+      .create(noteObject)
+      .then(response => {
+        setNotes(notes.concat(response))
+        setNewNote('')
+      })
+      .catch(error =>{
+        console('ERROR')
+      })
   }
+  const handleNoteChange = (event) =>{
+    setNewNote(event.target.value)// setNueva nota = input de form
+    }
+
+
 
   const notesToShow = showAll // si showAll is true ? mostrara todas las notas : si es falso filtrara las notas  
     ? notes
@@ -54,7 +71,11 @@ const App = () => {
       </div>
       <ul>
         {notesToShow.map(note => 
-          <Note key={note.id} note={note}/>
+          <Note 
+          key={note.id}
+          note={note}
+          toggleImportance={() => toggleImportanceOf(note.id)}
+          />
         )}
       </ul>
       <form onSubmit={addNote}>

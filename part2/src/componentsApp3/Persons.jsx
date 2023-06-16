@@ -1,6 +1,6 @@
 import Person from "./Person"
 
-const Persons = ({filterName}) => {
+const Persons = ({filterName, handleDelete}) => {
   return (
     <div>
           <ul>
@@ -8,7 +8,8 @@ const Persons = ({filterName}) => {
                 <Person 
                 key={p.id}
                 name={p}
-                number={p}/>
+                number={p}
+                handleDelete={() => handleDelete(p.id, p.name)}/>
             )}
         </ul>
     </div>
