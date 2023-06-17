@@ -1,6 +1,7 @@
 import Countries from "./Countries"
+import Selected from "./Selected"
 
-const Contries = ({ countriesFilter, handleShow, selectedCountry }) => {
+const Contries = ({ countriesFilter}) => {
 
 
     if (countriesFilter.length >= 10) {
@@ -10,10 +11,7 @@ const Contries = ({ countriesFilter, handleShow, selectedCountry }) => {
         return (
             <div>
                 {countriesFilter.map((ct) =>
-                    <p>{ct.name.common}
-                        <button onClick={handleShow}>{selectedCountry ? 'Hide' : 'Show'}</button>
-                        {selectedCountry ? <Countries country={ct} /> : null}
-                    </p>
+                        <Selected country={ct}/>
                 )}
             </div>
         )
