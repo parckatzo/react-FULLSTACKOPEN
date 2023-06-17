@@ -1,33 +1,34 @@
 import { useEffect, useState } from "react"
-import countriesService from "./services/countries"
+import countriesService from "./services/countriesService"
+import Contries from "./Contries"
 
 function App() {
 
 
 
-const [countries, setCountries] = useState("")
+const [countries, setCountries] = useState([])
+const [nameFilter, setNameFilter] = useState('')
 
   useEffect(() => {
     countriesService
       .getAll()
       .then(response => {
         setCountries(response)
-        console.log(response)
+        console.log(response[0].name.common)
       })
   }, [])
 
   const handleNewName = (event) =>{
     const str = event.target.value
-    setCountries(str.charAt(0).toUpperCase() + str.slice(1))
+    setNameFilter(str.toLowerCase())
   }
 
-  const countriesFilter = handleNewName === ""  ? "XD" : countries.filter(c => c.name.match(handleNewName))
-
+  const countriesFilter = countries.filter(c => c.name.common.toLowerCase().includes(nameFilter))
+  console.log("Countriesfilter", countriesFilter)
   return (
     <div>
      <p>find countries <input type="text" onChange={handleNewName}/></p>
-     <p>{countriesFilter}</p>
-     
+      <Contries countriesFilter={countriesFilter}/>
     </div>
   )
 }
