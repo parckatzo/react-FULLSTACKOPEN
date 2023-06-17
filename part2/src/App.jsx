@@ -2,11 +2,27 @@
 import Note from './components/Note'
 import { useEffect, useState } from 'react'
 import noteService from './services/notes'
+import Notification from './components/Notification'
+
+const Footer = () => {
+  const footerStyle = {
+    color: 'green',
+    fontStyle: 'italic',
+    fontSize: 16
+  }
+  return (
+    <div style={footerStyle}>
+      <br />
+      <em>Note app, Department of Computer Science, University of Helsinki 2022</em>
+    </div>
+  )
+}
 
 const App = () => {
-  const [notes, setNotes] = useState([]) // notes es un array 
+  const [notes, setNotes] = useState(null) // notes es un array 
   const [newNote, setNewNote] = useState("new note...")
   const [showAll, setShowAll] = useState(true)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     noteService
@@ -15,26 +31,28 @@ const App = () => {
         setNotes(response)
       })
   }, [])
-  console.log('render', notes.length, 'notes')
+  
+  if (!notes){
+    return null
+  }
 
-  const toggleImportanceOf = (id)  =>{
-    const note = notes.find(n => n.id === id)  //note = notas.find (notas => si notas.id es igual === a (id))
-    const changedNote = {...note, important: !note.important } //cambiar importancia true= false / viceversa
+  const toggleImportanceOf = id => {
+    const note = notes.find(n => n.id === id)
+    const changedNote = { ...note, important: !note.important }
 
-    console.log('note', note)
-    console.log('change', changedNote)
     noteService
-      .update(id, changedNote)
-      .then(response => {
-        setNotes(notes.map(note => note.id !== id ? note : response))
-    })
-      .catch(error =>{
-        alert(
-          `the note '${note.content}' was already deleted from server`
+      .update(id, changedNote).then(returnedNote => {
+        setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+      })
+      .catch(error => {
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server`
         )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
         setNotes(notes.filter(n => n.id !== id))
-    })
-
+      })
   }
 
   const addNote = (event) =>{
@@ -66,6 +84,7 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
+      <Notification message={errorMessage}/>
       <div>
         <button onClick={() => setShowAll(!showAll)}>
           Show {showAll ? 'important' : 'all'}
@@ -86,6 +105,7 @@ const App = () => {
           onChange={handleNoteChange}/>
           <button type='submit'> save</button>
       </form>
+      <Footer/>
     </div>
   )
 }

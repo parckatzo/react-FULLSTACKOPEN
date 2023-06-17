@@ -3,6 +3,7 @@ import Form from "./componentsApp3/Form"
 import Filter from "./componentsApp3/Filter"
 import Persons from "./componentsApp3/Persons"
 import namesService from "./services/names"
+import Error from "./componentsApp3/Error"
 
 const App3 = () => {
     const [persons, setPersons] = useState([])
@@ -10,6 +11,7 @@ const App3 = () => {
     const [same, setSame] = useState(false)
     const [newNumber, setNewNumber] = useState (0)
     const [nameFilter, setNameFilter] = useState('')
+    const [errorMessage, setErrorMessage] = useState(null)
 
     useEffect(() => {
         namesService
@@ -55,9 +57,16 @@ const App3 = () => {
          namesService
             .create(newAddName)
             .then(response =>{
+                setErrorMessage(
+                    `${newName} was added to the server`
+                )
+                setTimeout(() =>{
+                    setErrorMessage(null)
+                }, 3000)
                 setPersons(persons.concat(response))
                 }
             )
+            
         }
     }
     
@@ -71,7 +80,15 @@ const App3 = () => {
             .deleteObject(id)
             .then(response => {
                 setPersons(persons.filter(n => n.id !== id))
-            }) 
+            })
+            .catch(error => {
+                setErrorMessage(
+                    `information of ${name} has already been removed from server`
+                )
+                setTimeout(() =>{
+                    setErrorMessage(null)
+                }, 3000)
+            })
         : console.log('cancel')
     }
   
@@ -83,6 +100,7 @@ const App3 = () => {
   return (
     <div>
         <h2>Phonebook</h2>
+        <Error message={errorMessage}/>
         <Filter handleFilter={handleFilter}/>
         <h2>Add a new</h2>
         <Form 
