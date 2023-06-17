@@ -3,34 +3,32 @@ import countriesService from "./services/countriesService"
 import Contries from "./Contries"
 
 function App() {
-
-
-
-const [countries, setCountries] = useState([])
-const [nameFilter, setNameFilter] = useState('')
+  const [countries, setCountries] = useState([])
+  const [nameFilter, setNameFilter] = useState('')
 
   useEffect(() => {
     countriesService
       .getAll()
       .then(response => {
         setCountries(response)
-        console.log(response[0].name.common)
+        console.log(response)
       })
   }, [])
 
-  const handleNewName = (event) =>{
+  const handleNewName = (event) => {
     const str = event.target.value
     setNameFilter(str.toLowerCase())
   }
 
-  const countriesFilter = countries.filter(c => c.name.common.toLowerCase().includes(nameFilter))
-  console.log("Countriesfilter", countriesFilter)
-  return (
-    <div>
-     <p>find countries <input type="text" onChange={handleNewName}/></p>
-      <Contries countriesFilter={countriesFilter}/>
-    </div>
-  )
-}
+    const countriesFilter = countries.filter(c => c.name.common.toLowerCase().includes(nameFilter))
 
-export default App
+    return (
+      <div>
+        <p>find countries <input type="text" onChange={handleNewName} /></p>
+        <Contries countriesFilter={countriesFilter}  />
+      </div>
+    )
+  }
+
+
+  export default App
