@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import countriesService from "./services/countriesService"
 import Contries from "./Contries"
+import axios from "axios"
 
 function App() {
   const [countries, setCountries] = useState([])
+  const [weater, setWeather] = useState([])
   const [nameFilter, setNameFilter] = useState('')
 
   useEffect(() => {
@@ -14,6 +16,8 @@ function App() {
         console.log(response)
       })
   }, [])
+
+
 
   const handleNewName = (event) => {
     const str = event.target.value
