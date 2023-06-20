@@ -5,7 +5,6 @@ import axios from "axios"
 
 function App() {
   const [countries, setCountries] = useState([])
-  const [weater, setWeather] = useState([])
   const [nameFilter, setNameFilter] = useState('')
 
   useEffect(() => {
