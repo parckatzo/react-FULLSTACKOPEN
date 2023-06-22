@@ -2,7 +2,7 @@ import React from 'react'
 import Course1 from './components/Course1'
 
 
-export const App2 = () => {
+export const AppCourses = () => {
     const courses = [
         {
           name: 'Half Stack application development',
@@ -57,6 +57,6 @@ export const App2 = () => {
     }
 
 
-export default App2
+export default AppCourses
 
 

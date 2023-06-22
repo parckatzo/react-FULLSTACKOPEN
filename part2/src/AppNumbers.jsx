@@ -5,7 +5,7 @@ import Persons from "./componentsApp3/Persons"
 import namesService from "./services/names"
 import Error from "./componentsApp3/Error"
 
-const App3 = () => {
+const AppNumbers = () => {
     const [persons, setPersons] = useState([])
     const [newName, setNewName] = useState('')
     const [same, setSame] = useState(false)
@@ -116,4 +116,4 @@ const App3 = () => {
   )
 }
 
-export default App3
+export default AppNumbers

@@ -1,17 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
-import App2 from './App2.jsx'
-import App3 from './App3.jsx'
-import Country from './countrysearch/Country.jsx'
+import AppCourses from './AppCourses'
+import AppNotes from './AppNotes'
+import AppNumbers from './AppNumbers'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
-    <App2/>
-    <App3/>
-    <Country/>
+    <AppCourses/>
+    <AppNotes/>
+    <AppNumbers/>
   </React.StrictMode>,
 )

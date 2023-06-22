@@ -18,7 +18,7 @@ const Footer = () => {
   )
 }
 
-const App = () => {
+const AppNotes = () => {
   const [notes, setNotes] = useState(null) // notes es un array 
   const [newNote, setNewNote] = useState("new note...")
   const [showAll, setShowAll] = useState(true)
@@ -111,4 +111,4 @@ const App = () => {
 }
 
 
-export default App
+export default AppNotes
